@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        AWS_REGION = 'us-east-1'
+        ECR_REPO ='536697238312.dkr.ecr.us-east-1.amazonaws.com'
+        IMAGE_ECR_REPO ='536697238312.dkr.ecr.us-east-1.amazonaws.com/dev'
+    }
     stages{
         stage('CodeScan'){
             steps{
@@ -10,7 +15,7 @@ pipeline {
         }
         stage('dockerLogin)'){
             steps{
-                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 536697238312.dkr.ecr.us-east-1.amazonaws.com'
+                sh 'aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO'
             }
         }
         stage('dockerImageBuild'){
@@ -21,14 +26,14 @@ pipeline {
         }
         stage(DockerTag){
             steps{
-                sh 'docker tag dev:latest 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:latest'
-                sh 'docker tag imageversions 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:v1.$BUILD_NUMBER'
+                sh 'docker tag dev:latest $ECR_REPO/dev:latest'
+                sh 'docker tag imageversions $IMAGE_ECR_REPO:v1.$BUILD_NUMBER'
             }
         }
         stage(DockerPush){
             steps{
-                sh 'docker push 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:latest'
-                sh 'docker push 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:v1.$BUILD_NUMBER'
+                sh 'docker push $IMAGE_ECR_REPO:latest'
+                sh 'docker push $INAGE_ECR_REPO:v1.$BUILD_NUMBER'
             }
         }
        
