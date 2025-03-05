@@ -22,7 +22,7 @@ pipeline {
         stage(DockerTag){
             steps{
                 sh 'docker tag dev:latest 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:latest'
-                sh 'docker tag imageversion:latest 536697238312.dkr.ecr.us-east-1.amazonaws.com/imageversion:v1.$BUILD_NUMBER'
+                sh 'docker tag imageversion 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:v1.$BUILD_NUMBER'
             }
         }
         stage(DockerPush){
