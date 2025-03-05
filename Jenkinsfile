@@ -16,13 +16,13 @@ pipeline {
         stage('dockerImageBuild'){
             steps{
                 sh 'docker build -t dev . '
-                sh 'docker build -t imageversion . '
+                sh 'docker build -t imageversions . '
             }
         }
         stage(DockerTag){
             steps{
                 sh 'docker tag dev:latest 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:latest'
-                sh 'docker tag imageversion 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:v1.$BUILD_NUMBER'
+                sh 'docker tag imageversions 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:v1.$BUILD_NUMBER'
             }
         }
         stage(DockerPush){
