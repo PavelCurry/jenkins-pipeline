@@ -4,8 +4,7 @@ pipeline {
         stage('CodeScan'){
             steps{
                 sh 'trivy --version'
-                sh 'uname -r'
-                sh 'cat /etc/os-release'
+                
             }
         }
         stage('dockerImageBuild'){
