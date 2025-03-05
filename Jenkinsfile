@@ -26,7 +26,7 @@ pipeline {
         }
         stage(DockerTag){
             steps{
-                sh 'docker tag dev:latest $ECR_REPO/dev:latest'
+                sh 'docker tag dev:latest $IMAGE_ECR_REPO:latest'
                 sh 'docker tag imageversions $IMAGE_ECR_REPO:v1.$BUILD_NUMBER'
             }
         }
