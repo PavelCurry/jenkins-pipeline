@@ -28,7 +28,7 @@ pipeline {
         stage(DockerPush){
             steps{
                 sh 'docker push 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:latest'
-                sh 'docker push 536697238312.dkr.ecr.us-east-1.amazonaws.com/imageversion:v1.$BUILD_NUMBER'
+                sh 'docker push 536697238312.dkr.ecr.us-east-1.amazonaws.com/dev:v1.$BUILD_NUMBER'
             }
         }
        
