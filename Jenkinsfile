@@ -4,6 +4,8 @@ pipeline {
         stage('Clone'){
             steps{
                 sh 'echo "clone"'
+                sh 'uname -r'
+                sh 'cat /etc/os-release'
             }
         }
         stage('test'){
